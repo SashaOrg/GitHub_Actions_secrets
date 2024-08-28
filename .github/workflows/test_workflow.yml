@@ -1,63 +1,35 @@
-on: 
-  # Allows you to run this workflow manually from the Actions tab 
-  workflow_dispatch: 
- 
-# A workflow run is made up of one or more jobs that can run sequentially or in parallel 
-jobs: 
-  build: 
+on:
+  workflow_dispatch:
+env:
+  cat_name: "Puszek"
+
+jobs:
+  display-variables:
+    name: <UŻYJ TU ENVIRONMENT_VAR>
     runs-on: ubuntu-latest
-    environment: test_workflow
-    steps: 
-      - name: Get ClI_Secret1 
-        env: 
-          secret : ${{secrets.CLI_SECRET1}} 
-        run: | 
-          echo "CLI_SECRET1: $secret" 
-     
-    # CLI_SECRET2 
-      - name: Get CLI_SECRET2 
-        env: 
-          secret : ${{secrets.CLI_SECRET2}} 
-        run: | 
-          echo "CLI_SECRET2: $secret" >> CLI_SECRET2.txt 
-       
-      - uses: actions/upload-artifact@v4 
-        with: 
-          name: CLI_SECRET2 
-          path: CLI_SECRET2.txt 
- 
-    # UI_SECRET 
-      - name: Get UI_SECRET 
-        env: 
-          secret : ${{secrets.UI_SECRET}} 
-        run: | 
-          echo "UI_SECRET: $secret" >> UI_SECRET.txt 
-       
-      - uses: actions/upload-artifact@v4 
-        with: 
-          name: UI_SECRET 
-          path: UI_SECRET.txt 
- 
-    # ORG_SECRET 
-      - name: Get ORG_SECRET 
-        env: 
-          secret : ${{secrets.ORG_SECRET}} 
-        run: | 
-          echo "ORG_SECRET: $secret" >> ORG_SECRET.txt 
-       
-      - uses: actions/upload-artifact@v4 
-        with: 
-          name: ORG_SECRET 
-          path: ORG_SECRET.txt 
-         
-    # ENV_SECRET1 
-      - name: Get ENV_SECRET1 
-        env: 
-          secret : ${{secrets.ENV_SECRET1}} 
-        run: | 
-          echo "ENV_SECRET1: $secret" >> ENV_SECRET1.txt 
-       
-      - uses: actions/upload-artifact@v4 
-        with: 
-          name: ENV_SECRET1 
-          path: ENV_SECRET1.txt 
+    steps:
+    - name: Use variables 1
+      run: |
+        echo "Repository variable : $REPOSITORY_VAR"
+        echo "Organization variable : $ORGANIZATION_VAR"
+        echo "Environment variable : $ENVIRONMENT_VAR"
+        echo "Ala ma kota o nazwie <WYPISZ TU IMIĘ KOTA ZAPISANE W ZMIENNEJ cat_name>"
+        echo "Powinna być zmienna w scopie workflow:$WORKFLOW_VAR"
+        echo "Powinna być zmienna w scopie joba:$JOB_VAR"
+        echo "Powinna być zmienna w scopie stepu:$STEP_VAR"
+    
+    - name: Use variables 1
+      run: |
+        echo "Ala ma kota o nazwie <WYPISZ TU IMIĘ KOTA ZAPISANE W ZMIENNEJ cat_name>"
+        echo "Powinna być zmienna w scopie workflow:$WORKFLOW_VAR"
+        echo "Powinna być zmienna w scopie joba:$JOB_VAR"
+        echo "NIE powinna być zmienna w scopie stepu:$STEP_VAR"
+
+  display-variables2:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Use variables in display-variables2
+      run: |
+        echo "Powinna być zmienna w scopie workflow:$WORKFLOW_VAR"
+        echo "NIE powinna być zmienna w scopie joba:$JOB_VAR"
+        echo "NIE powinna być zmienna w scopie stepu:$STEP_VAR"
