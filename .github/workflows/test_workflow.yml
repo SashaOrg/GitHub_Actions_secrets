@@ -16,7 +16,7 @@ jobs:
   log-the-inputs: 
     runs-on: ubuntu-latest 
     steps:
-      - name: test12345
+      - name: test123456
         run: | 
           echo "Log level: $LEVEL" 
           echo "Tags: $TAGS" 
