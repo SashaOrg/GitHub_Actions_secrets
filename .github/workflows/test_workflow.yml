@@ -12,13 +12,11 @@ on:
       environment:
         type: environment
 
- 
- 
 jobs: 
   log-the-inputs: 
     runs-on: ubuntu-latest 
     steps:
-     - name: testik
+      - name: testik
         run: | 
           echo "Log level: $LEVEL" 
           echo "Tags: $TAGS" 
