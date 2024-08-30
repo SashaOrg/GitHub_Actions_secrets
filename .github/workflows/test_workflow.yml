@@ -16,7 +16,12 @@ on:
 
 jobs: 
   log-the-inputs: 
-    runs-on: ubuntu-latest 
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        LogLevel: ${{ fromJSON(inputs.logLevel) }}
+        version: [10, 12, 14]
+        os: [ubuntu-latest, windows-latest]
     steps:
       - name: test123456
         run: | 
@@ -24,11 +29,6 @@ jobs:
           echo "Tags: $TAGS" 
           echo "Environment: $ENVIRONMENT" 
         env: 
-          LEVEL: ${{ inputs.logLevel }} 
+          LEVEL: ${{ matrix.LogLevel }} 
           TAGS: ${{ inputs.tags }} 
           ENVIRONMENT: ${{ inputs.environment }}
-  strategy:
-    matrix:
-      LogLevel: ${{ fromJSON(LogLevel)}}
-      version: [10, 12, 14]
-      os: [ubuntu-latest, windows-latest]
