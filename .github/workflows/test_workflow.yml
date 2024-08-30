@@ -11,6 +11,8 @@ on:
         - debug
       environment:
         type: environment
+      matrix:
+        type: string
 
 jobs: 
   log-the-inputs: 
@@ -25,3 +27,8 @@ jobs:
           LEVEL: ${{ inputs.logLevel }} 
           TAGS: ${{ inputs.tags }} 
           ENVIRONMENT: ${{ inputs.environment }}
+  strategy:
+    matrix:
+      LogLevel: ${{ fromJSON(LogLevel)}}
+      version: [10, 12, 14]
+      os: [ubuntu-latest, windows-latest]
