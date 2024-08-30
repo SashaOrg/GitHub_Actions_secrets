@@ -17,7 +17,8 @@ on:
 jobs: 
   log-the-inputs: 
     runs-on: ubuntu-latest 
-    steps: 
+    steps:
+      name: testik
         run: | 
           echo "Log level: $LEVEL" 
           echo "Tags: $TAGS" 
